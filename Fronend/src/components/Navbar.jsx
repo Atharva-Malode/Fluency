@@ -1,20 +1,23 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const menuItems = [
   {
     name: "Leaderboard",
-    href: "/still-working-on-it",
+    href: "/leaderboard",
   },
   {
     name: "My Profile",
-    href: "auth/signup",
+    href: "/profile",
   },
 ];
 
-export function Navbar() {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const bearerToken = Cookies.get("bearerToken");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -86,9 +89,10 @@ export function Navbar() {
             </div>
           </div>
         )}
+        {!bearerToken && <Navigate to="/auth/signup" />}
       </div>
     </header>
   );
-}
+};
 
 export default Navbar;

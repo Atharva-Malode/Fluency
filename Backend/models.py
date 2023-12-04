@@ -14,6 +14,7 @@ class User(Document):
     password = StringField()
     questions = ListField(EmbeddedDocumentField(Question))
     total_points = IntField()
+    language = ListField()
 
 # class User(Document):
 #     username = StringField(unique=True)
@@ -24,6 +25,7 @@ class NewUser(BaseModel):
     password: str
     questions: Optional[list] = None
     total_points: Optional[int] = 0
+    language: Optional[list] = None
 
 class test(Document):
     no = IntField()

@@ -43,7 +43,7 @@ def get_users():
 def sign_up(new_user: NewUser):
     if(User.objects.filter(username=new_user.username).count() > 0):
       return {"message": "User already exists"}
-    user = User(username=new_user.username, password=get_password_hash(new_user.password),total_points=0)
+    user = User(username=new_user.username, password=get_password_hash(new_user.password),total_points=0,language=new_user.language)
     user.save()
     return {"message": "Signup successful"}
 
@@ -75,13 +75,6 @@ def get_user_data(token: str = Depends(oauth2_scheme)):
             raise HTTPException(status_code=404, detail="User not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving data: {str(e)}")
-    
-# @app.get("/first")
-# def get_first (token : str = Depends(oauth2_scheme)):
-#     try:
-#         return {"message" :test.objects.get(no=1).questions[0]}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
 
 @app.post("/add_question")
 def add_question(
@@ -128,27 +121,17 @@ def get_question(request: QuestionRequest, token: str = Depends(oauth2_scheme)):
         )
 
 
-# @app.post("/question")
-# def get_question(
-#     question_no: int,
-#     old_answer: Optional[bool] = True,
-#     old_level: Optional[str] = "easy",
-#     token: str = Depends(oauth2_scheme),
-# ):
-#     try:
-#         if question_no < 0 or question_no >= len(test.objects.get(no=1).questions):
-#             raise HTTPException(
-#                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-#                 detail=f"Invalid question number provided: {question_no}.",
-#             )
-
-#         if question_no == 0:
-#             return {"message": test.objects.get(no=1).questions[0]}
-
-#         check = next_question(old_level, question_no, old_answer)
-#         return {"message": check}
-#     except Exception as e:
-#         raise HTTPException(
-#             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-#             detail=f"Error processing request: {str(e)}",
-#         )
+@app.get("/leaderboard")
+def get_leaderboard():
+    try:
+        Leaderboard = User.objects.only("username", "total_points").order_by("-total_points")
+        leaderboard_data = [
+            {"username": user.username, "total_points": user.total_points}
+            for user in Leaderboard
+        ]
+        return {"message": leaderboard_data}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error processing request: {str(e)}",
+        )
