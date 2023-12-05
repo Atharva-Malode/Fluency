@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link} from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const menuItems = [
@@ -53,6 +52,7 @@ const Navbar = () => {
         <div className="lg:hidden">
           <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
         </div>
+
         {isMenuOpen && (
           <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
             <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
@@ -89,7 +89,9 @@ const Navbar = () => {
             </div>
           </div>
         )}
-        {!bearerToken && <Navigate to="/auth/signup" />}
+
+        {/* Redirect to login if user is not logged in */}
+        {!bearerToken && <Navigate to="/auth/login" />}
       </div>
     </header>
   );

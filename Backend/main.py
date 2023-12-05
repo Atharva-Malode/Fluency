@@ -1,7 +1,7 @@
 
 from fastapi import FastAPI, HTTPException
 from mongoengine import connect
-from models import User, NewUser, Question, test
+from models import User, NewUser, Question, test, QuestionRequest, AddQuestionRequest
 import json
 from datetime import timedelta
 from pass_hash import get_password_hash
@@ -76,29 +76,36 @@ def get_user_data(token: str = Depends(oauth2_scheme)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving data: {str(e)}")
 
+from fastapi import FastAPI, Depends, HTTPException
+from pydantic import BaseModel
+from typing import Optional
+
+
+
 @app.post("/add_question")
 def add_question(
-    question: str,
-    answer: str,
-    time_seconds: str,
-    points: int,
+    request_data: AddQuestionRequest,
     token: str = Depends(oauth2_scheme),
 ):
-    try:  
-        # add_question_to_user
+    try:
+        # Retrieve values from request_data
+        question = request_data.question
+        answer = request_data.answer
+        time_seconds = request_data.time_seconds
+        points = request_data.points
+        
+        # Assuming these functions exist to add question and points
         add_question_to_user(token, question, answer, time_seconds, points)
         add_points_to_user(token, points)
+        
         return {"message": "Question added"}
+    except KeyError as ke:
+        raise HTTPException(status_code=422, detail=f"Invalid data format: {str(ke)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
-from typing import Optional
-from fastapi import Depends, HTTPException, status
-from pydantic import BaseModel
 
-class QuestionRequest(BaseModel):
-    question_no: int
-    old_answer: Optional[bool] = True
-    old_level: Optional[str] = "easy"
+
+
 
 @app.post("/question")
 def get_question(request: QuestionRequest, token: str = Depends(oauth2_scheme)):

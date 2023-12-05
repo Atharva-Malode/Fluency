@@ -32,3 +32,14 @@ class test(Document):
     language = StringField()
     questions = ListField()
 
+class QuestionRequest(BaseModel):
+    question_no: int
+    old_answer: Optional[bool] = True
+    old_level: Optional[str] = "easy"
+
+
+class AddQuestionRequest(BaseModel):
+    question: str
+    answer: str
+    time_seconds: Optional[str] = "15 seconds"
+    points: int
