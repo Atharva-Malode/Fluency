@@ -1,28 +1,37 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { useLocation } from "react-router-dom";
 
-const Quiz = () => {
+const Quiz = ({language}) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [score, setScore] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [level, setLevel] = useState("easy");
+  const [answer, setAnswer] = useState("false");
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [currentExplanation, setCurrentExplanation] = useState("");
 
   const fetchNextQuestion = async () => {
     try {
       const token = Cookies.get("bearerToken");
-      const questionNo = currentQuestion + 1;
+      const questionNo = questions.length + 1;
+      console.log(language)
+      const requestData = {
+        question_no: questionNo,
+        old_answer: answer,
+        old_level: level,
+        language: language || "english",
+      };
+      
       const response = await fetch("http://127.0.0.1:8000/question", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token || ""}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          question_no: questionNo,
-          old_answer: selectedOption === questions[currentQuestion]?.answer,
-          old_level: questions[currentQuestion]?.level || "easy",
-        }),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
@@ -31,9 +40,12 @@ const Quiz = () => {
 
       const data = await response.json();
       setQuestions([...questions, data.message]);
+      setLevel(data.message.level);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setErrorMessage("Warning: Please log in again to get the total marks on Leaderboard");
+      setErrorMessage(
+        "Warning: Please log in again if quiz is not completed"
+      );
     }
   };
 
@@ -63,12 +75,14 @@ const Quiz = () => {
       // Handle success or any further actions here
     } catch (error) {
       console.error("Error submitting answer:", error);
-      setErrorMessage("Warning: Please log in again to get the total marks on Leaderboard");
+      setErrorMessage(
+        "Warning: Please log in again to get the total marks on Leaderboard"
+      );
     }
   };
 
   useEffect(() => {
-    if (currentQuestion < 10) {
+    if (currentQuestion < 11) {
       fetchNextQuestion();
     }
   }, [currentQuestion]);
@@ -92,10 +106,9 @@ const Quiz = () => {
 
   const handleSubmit = () => {
     const currentQuestionData = questions[currentQuestion];
-    const { answer, level } = currentQuestionData;
+    const { answer, level, explanation } = currentQuestionData;
     if (selectedOption === answer) {
       let pointsToAdd = 0;
-  
       switch (level) {
         case "easy":
           pointsToAdd = 1;
@@ -109,7 +122,13 @@ const Quiz = () => {
         default:
           pointsToAdd = 0;
       }
-      setScore(score + 1);
+      setAnswer("true");
+      setScore(score + pointsToAdd);
+    } else {
+      setAnswer("false");
+      setShowExplanation(true);
+      setCurrentExplanation(explanation);
+      // setTimeout(moveToNextQuestion, 5000);
     }
     setSelectedOption("");
     submitUserAnswer();
@@ -149,7 +168,7 @@ const Quiz = () => {
                 {questions[currentQuestion]?.level}
               </p>
             </div>
-            <p className="text-sm text-gray-500 mb-2">
+            <p className="mt-2 text-xl text-gray-500 mb-2">
               {questions[currentQuestion]?.question || ""}
             </p>
             <div className="flex flex-col space-y-2">
@@ -180,13 +199,22 @@ const Quiz = () => {
                 Submit
               </button>
             </div>
+            <div className="mt-4">
+              {showExplanation && (
+                <p className="text-sm text-red-500 mb-2">
+                  {currentExplanation}
+                </p>
+              )}
+            </div>
           </>
         ) : (
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4 text-blue-600">
               Quiz Completed
             </h1>
-            <p className="px-6 py-4">You scored {score} out of 10</p>
+            <p className="px-6 py-4">
+              You scored {score} Points, check the Leaderboard
+            </p>
           </div>
         )}
         {errorMessage && (

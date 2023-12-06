@@ -1,7 +1,7 @@
 
 from fastapi import FastAPI, HTTPException
 from mongoengine import connect
-from models import User, NewUser, Question, test, QuestionRequest, AddQuestionRequest
+from models import User, NewUser, test, QuestionRequest, AddQuestionRequest
 import json
 from datetime import timedelta
 from pass_hash import get_password_hash
@@ -11,15 +11,18 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends
 from jose import jwt
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Optional
 from add_question import add_question_to_user
 from add_points import add_points_to_user
 from next_question import next_question
 from fastapi import status
 
-app = FastAPI()
-connect("Language", host="localhost", port=27017)
 
+app = FastAPI()  #creating the app
+
+
+connect("Language", host="localhost", port=27017) #connecting to the database
+
+#to allow the frontend to access the backend CORS is used
 origins = [
     "http://localhost:5173",
 ]
@@ -34,11 +37,11 @@ app.add_middleware(
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-@app.get("/check_users")
-def get_users():
-    check = json.loads(User.objects().to_json())
-    return {"message": check}
+@app.get("/")
+def read_root():
+    return {"message": "The Endpoint is working and implemented by @atharva-malode in fast api"}
 
+#route to signup
 @app.post("/signup")
 def sign_up(new_user: NewUser):
     if(User.objects.filter(username=new_user.username).count() > 0):
@@ -48,20 +51,23 @@ def sign_up(new_user: NewUser):
     return {"message": "Signup successful"}
 
 
+#route to login
 @app.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends() ):
-    #,user : UserLogin
+    
     username = form_data.username
     password = form_data.password
 
     if authenticate_user(username, password):
-       accese_token = create_access_token(data={"sub": username},expires_delta=timedelta(minutes=30))
+       accese_token = create_access_token(data={"sub": username},expires_delta=timedelta(days=20))
        return {"access_token": accese_token, "token_type": "bearer"}
     else:
          raise HTTPException(status_code=400, detail="Incorrect username or password")
          # return {"message": "Incorrect username or password"
     # return {"message": "Login successful"}
 
+
+#route to get the user data
 @app.get("/user_data")
 def get_user_data(token: str = Depends(oauth2_scheme)):
     decoded_token = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -76,25 +82,22 @@ def get_user_data(token: str = Depends(oauth2_scheme)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving data: {str(e)}")
 
-from fastapi import FastAPI, Depends, HTTPException
-from pydantic import BaseModel
-from typing import Optional
 
-
-
+#to add the data which user has entered : once submite button is clicked
 @app.post("/add_question")
 def add_question(
     request_data: AddQuestionRequest,
     token: str = Depends(oauth2_scheme),
 ):
     try:
-        # Retrieve values from request_data
+        #setting the values of the request data
         question = request_data.question
         answer = request_data.answer
         time_seconds = request_data.time_seconds
         points = request_data.points
-        
-        # Assuming these functions exist to add question and points
+        excercise_no = request_data.excercise_no
+
+        # the function are implemented in add_question.py and add_points.py
         add_question_to_user(token, question, answer, time_seconds, points)
         add_points_to_user(token, points)
         
@@ -106,7 +109,7 @@ def add_question(
 
 
 
-
+#the route helps to get a new question || next question function is in next_question.py
 @app.post("/question")
 def get_question(request: QuestionRequest, token: str = Depends(oauth2_scheme)):
     try:
@@ -115,11 +118,11 @@ def get_question(request: QuestionRequest, token: str = Depends(oauth2_scheme)):
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 detail=f"Invalid question number provided: {request.question_no}.",
             )
-
+        
         if request.question_no == 0:
             return {"message": test.objects.get(no=1).questions[0]}
 
-        check = next_question(request.old_level, request.question_no, request.old_answer)
+        check = next_question(request.old_level, request.question_no - 2, request.old_answer, request.language)
         return {"message": check}
     except Exception as e:
         raise HTTPException(
@@ -128,10 +131,11 @@ def get_question(request: QuestionRequest, token: str = Depends(oauth2_scheme)):
         )
 
 
+#the function helps to get the Leaderboard with username having highest points and so on
 @app.get("/leaderboard")
 def get_leaderboard():
     try:
-        Leaderboard = User.objects.only("username", "total_points").order_by("-total_points")
+        Leaderboard = User.objects.only("username", "total_points").order_by("-total_points") #order_by is used to sort the data in descending order
         leaderboard_data = [
             {"username": user.username, "total_points": user.total_points}
             for user in Leaderboard
