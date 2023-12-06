@@ -25,7 +25,7 @@ const Guidelines = () => {
   };
   
   const handleGetStarted = () => {
-    console.log(language); // Logging the language when Get Started is clicked
+    console.log(language); 
   };
 
   return (
