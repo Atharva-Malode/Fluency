@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 
-const Quiz = ({language}) => {
+
+
+const Quiz = () => {
+  
+  const location = useLocation();
+  const { state } = location;
+  
+  const language = state?.language || "english";
+
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
@@ -12,6 +20,9 @@ const Quiz = ({language}) => {
   const [answer, setAnswer] = useState("false");
   const [showExplanation, setShowExplanation] = useState(false);
   const [currentExplanation, setCurrentExplanation] = useState("");
+  
+  
+
 
   const fetchNextQuestion = async () => {
     try {
@@ -22,7 +33,7 @@ const Quiz = ({language}) => {
         question_no: questionNo,
         old_answer: answer,
         old_level: level,
-        language: language || "english",
+        language: "english",
       };
       
       const response = await fetch("http://127.0.0.1:8000/question", {

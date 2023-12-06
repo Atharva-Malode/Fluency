@@ -22,10 +22,10 @@ const Leaderboard = () => {
             <div className="font-semibold">Language</div>
             {leaderboardData.map((user, index) => (
               <React.Fragment key={index}>
-                <div className="border-b border-gray-300">{index + 1}</div>
-                <div className="border-b border-gray-300">{user.username}</div>
-                <div className="border-b border-gray-300">{user.total_points}</div>
-                <div className="border-b border-gray-300">English</div>
+                <div>{index + 1}</div>
+                <div>{user.username}</div>
+                <div>{user.total_points}</div>
+                <div>English</div>
               </React.Fragment>
             ))}
           </div>
