@@ -92,7 +92,7 @@ Your application is now set up and ready to use!
 
 <!-- Second Row -->
 <p align="center">
-  <img src="assets/frontend-userprofile.png" alt="User Profile" width="400"/>
+  <img src="assets/fFrontend-userprofile.png" alt="User Profile" width="400"/>
   <img src="assets/fronend-question1.png" alt="Question 1" width="400"/>
 </p>
 
