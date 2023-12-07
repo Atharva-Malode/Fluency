@@ -75,11 +75,34 @@ Fluency is a language learning application designed to facilitate language acqui
 13. Access Swagger docs:
     - Navigate to the link (usually localhost:8000) in your browser.
     - Append "/docs" to the link (e.g., localhost:8000/docs) to view the Swagger documentation.
-      
+
 #### Open the Frontend Link
 14. Open the frontend application by navigating to [link available in frontend terminal, usually localhost:5173] in your browser.
 
 Your application is now set up and ready to use!
+
+---
+### **Frontend Overview**
+
+<!-- First Row -->
+<p align="center">
+  <img src="assets/Frontend-home.png" alt="Home Page" width="400"/>
+  <img src="assets/Frontend-Leaderboard.png" alt="Leaderboard" width="400"/>
+</p>
+
+<!-- Second Row -->
+<p align="center">
+  <img src="assets/frontend-userprofile.png" alt="User Profile" width="400"/>
+  <img src="assets/fronend-question1.png" alt="Question 1" width="400"/>
+</p>
+
+<!-- Third Row -->
+<p align="center">
+  <img src="assets/Frontend-question2.png" alt="Question 2" width="400"/>
+  <img src="assets/Sign-up-frontend.png" alt="Sign Up" width="400"/>
+</p>
+
+---
 
 ### **Backend Overview**
 
@@ -99,12 +122,11 @@ The backend is powered by **FastAPI**, a high-performance web framework for Pyth
 - `POST /question`: Get Question (require: question number, old answer correctness, old level of the question, language of the question)
 - `GET /leaderboard`: Get Leaderboard
 
-### **Interactive Documentation with Swagger**
-
-![Swagger Documentation](image_url_here)
-
 The backend includes Swagger UI, offering an intuitive interface to explore routes, parameters, outputs, and test functionalities.
 
+![Swagger UI](assets/Backend-swagger.png)
+
+---
 ### **MongoDB Overview**
 
 The application utilizes MongoDB, a NoSQL database, to store and manage data efficiently.
@@ -117,16 +139,8 @@ MongoDB is structured with two collections:
 
 - **Tests Collection**: Contains exercises categorized by language. Each exercise includes an array of questions with answer explanations, options, and exercise numbers.
 
-This structure ensures organized storage and retrieval of user and exercise-related data.
-
-### **Frontend Overview**
-
-The frontend of this application is developed using **React JS** and **Tailwind CSS**.
-
-#### React JS
-React JS is a popular JavaScript library for building user interfaces. Its component-based architecture and virtual DOM make it efficient for creating interactive and dynamic web applications.
-
-#### Tailwind CSS
-Tailwind CSS is a utility-first CSS framework that allows for rapid UI development by providing a set of pre-built utility classes. It enables easy customization and flexibility in styling the frontend components.
-
-The combination of React JS and Tailwind CSS in this application ensures a responsive, interactive, and visually appealing user interface.
+<p align="center">
+  <img src="assets/Mongo-user-data.png" alt="Question 2" width="400"/>
+  <img src="assets\mongo-excercise-data.png" alt="Sign Up" width="400"/>
+</p>
+---
