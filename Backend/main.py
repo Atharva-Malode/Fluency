@@ -15,13 +15,25 @@ from add_question import add_question_to_user
 from add_points import add_points_to_user
 from next_question import next_question
 from fastapi import status
+from dotenv import load_dotenv
+import os
+
+#the connection string for mongodb atlas server
+
+load_dotenv() 
+mongo_url = os.getenv("MONGODB")
 
 
 app = FastAPI()  #creating the app
 
 
 #make sure to change the database name and the port number
-connect("Language", host="localhost", port=27017) #connecting to the database
+# connect("Language", host="localhost", port=27017) #connecting to the database
+connect(
+    db='Language',
+    # host='mongo_url'
+    host='mongodb+srv://atharva:atharva11@cluster0.hlwnren.mongodb.net/'
+)
 
 
 
@@ -116,6 +128,13 @@ def add_question(
 @app.post("/question")
 def get_question(request: QuestionRequest, token: str = Depends(oauth2_scheme)):
     try:
+        decoded_token = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username = decoded_token.get("sub")
+        if username is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail=f"Invalid token provided.",
+            )
         if request.question_no < 0 or request.question_no >= len(test.objects.get(no=1).questions):
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,

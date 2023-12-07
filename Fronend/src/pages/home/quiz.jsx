@@ -55,7 +55,7 @@ const Quiz = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
       setErrorMessage(
-        "Warning: Please log in again if quiz is not completed"
+        "Warning: Please log in first"
       );
     }
   };
