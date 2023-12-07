@@ -18,7 +18,7 @@ Fluency is a language learning application designed to facilitate language acqui
 #### Cloning the Project
 1. Clone the project repository:
     ```bash
-    git clone https://github.com/Atharva-Malode/Fluency---Language-Learning-app.git
+    git clone https://github.com/Atharva-Malode/Fluency-Language-Learning-app.git
     ```
 
 #### Frontend Setup
