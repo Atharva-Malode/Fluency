@@ -20,7 +20,10 @@ from fastapi import status
 app = FastAPI()  #creating the app
 
 
+#make sure to change the database name and the port number
 connect("Language", host="localhost", port=27017) #connecting to the database
+
+
 
 #to allow the frontend to access the backend CORS is used
 origins = [
