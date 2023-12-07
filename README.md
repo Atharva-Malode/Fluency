@@ -11,6 +11,8 @@ Fluency is a language learning application designed to facilitate language acqui
 - [x] Responsive Design: Mobile-Friendly for seamless cross-device experience.
 - [ ] Exercise Management: Admin Panel to add exercises in different languages.
 
+## Backend Test Link : https://fluency.azurewebsites.net/docs
+
 ---
 
 ### **How to Set Up & Start the Application**
