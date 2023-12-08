@@ -32,7 +32,7 @@ app = FastAPI()  #creating the app
 connect(
     db='Language',
     # host='mongo_url'
-    host='mongodb+srv://atharva:atharva11@cluster0.hlwnren.mongodb.net/'
+    host="add your link here"
 )
 
 
@@ -44,10 +44,12 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
+
 )
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")

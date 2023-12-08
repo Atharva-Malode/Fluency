@@ -36,7 +36,7 @@ const Quiz = () => {
         language: "english",
       };
       
-      const response = await fetch("http://127.0.0.1:8000/question", {
+      const response = await fetch("https://fluency.azurewebsites.net/question", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token || ""}`,
@@ -65,7 +65,7 @@ const Quiz = () => {
       const token = Cookies.get("bearerToken");
       const currentQuestionData = questions[currentQuestion];
 
-      const response = await fetch("http://127.0.0.1:8000/add_question", {
+      const response = await fetch("https://fluencyapp.azurewebsites.net/add_question", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token || ""}`,

@@ -32,7 +32,7 @@ const MyProfile = () => {
       return;
     }
 
-    fetch('http://127.0.0.1:8000/user_data', {
+    fetch('https://fluencyapp.azurewebsites.net/user_data', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -53,7 +53,7 @@ const MyProfile = () => {
   }, [navigate]);
 
   if (!userData) {
-    return <p>Loading...</p>; // Or handle this as needed
+    return <p>Loading...</p>; 
   }
 
   const proficiencyLevel = getProficiencyLevel(userData.total_points);

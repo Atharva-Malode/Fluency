@@ -4,7 +4,7 @@ const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/leaderboard')
+    fetch('https://fluencyapp.azurewebsites.net/leaderboard')
       .then((response) => response.json())
       .then((data) => setLeaderboardData(data.message))
       .catch((error) => console.error('Error fetching leaderboard:', error));
