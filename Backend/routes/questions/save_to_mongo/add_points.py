@@ -1,7 +1,13 @@
-from accese_token import SECRET_KEY, ALGORITHM
+# from accese_token import SECRET_KEY, ALGORITHM
 from models import User
 from fastapi import HTTPException
 import jwt
+from dotenv import load_dotenv
+import os
+
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 
 def add_points_to_user(token: str, points_to_add: int):
     try:

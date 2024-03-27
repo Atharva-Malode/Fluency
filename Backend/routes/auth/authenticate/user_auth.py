@@ -1,6 +1,7 @@
 import json
 from models import User
-from pass_hash import pwd_context, get_password_hash
+from routes.auth.authenticate.pass_hash import pwd_context
+
 def authenticate_user(username, password):
     try:
         user = json.loads(User.objects.get(username=username).to_json())
