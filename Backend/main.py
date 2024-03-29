@@ -10,6 +10,8 @@ from routes.questions.save_question import Addquestionrouter
 from routes.user_data.get_user_details import UserData
 from routes.questions.get_question import NextQuestion
 from routes.home.home import Home
+from routes.warning.add_warning import warning
+from routes.startExam.exam import exam
 
 app = FastAPI()  #creating the app
 
@@ -47,3 +49,7 @@ app.include_router(UserData, tags=["User Data"])
 app.include_router(NextQuestion,tags=["question"])
 
 app.include_router(Home, tags=["home"])
+
+app.include_router(warning, tags=["warning"])
+
+app.include_router(exam, tags=["exam"])

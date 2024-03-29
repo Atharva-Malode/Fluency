@@ -42,3 +42,8 @@ class AddQuestionRequest(BaseModel):
     time_seconds: Optional[int] = 15
     points: int
     correct_answer: str
+
+
+#schema to add the warning to the user database
+class AddWarning(BaseModel):
+    warnings: int

@@ -8,6 +8,8 @@ import Profile from "./pages/my_profile/index";
 import Board from "./pages/leaderboard/index";
 import Quiz from "./pages/home/quiz";
 
+import UserBlock from "./pages/blocked";
+
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +21,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/leaderboard" element={<Board />} />
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/blocked" element={<UserBlock />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
       <Footer />

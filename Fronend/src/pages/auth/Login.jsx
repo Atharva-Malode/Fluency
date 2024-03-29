@@ -35,7 +35,10 @@ const Login = () => {
       if (response.status === 200) {
         const responseData = await response.json();
         const token = responseData.access_token;
-
+        const status = responseData.allowed;
+        if (status === true) {
+          navigate("/blocked");
+        }
         if (token) {
           cokkie.set('bearerToken', token);
           setLoginStatus("success");
@@ -46,6 +49,7 @@ const Login = () => {
         } else {
           setLoginStatus("error");
         }
+        
       } else {
         setLoginStatus("error");
       }
