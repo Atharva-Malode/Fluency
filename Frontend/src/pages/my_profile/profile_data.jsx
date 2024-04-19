@@ -53,7 +53,7 @@ const MyProfile = () => {
   }, [navigate]);
 
   if (!userData) {
-    return <p>Loading...</p>; // Or handle this as needed
+    return <p>Loading...</p>; 
   }
 
   const proficiencyLevel = getProficiencyLevel(userData.total_points);

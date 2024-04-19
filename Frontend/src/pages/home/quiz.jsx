@@ -106,7 +106,9 @@ const Quiz = () => {
       setErrorMessage("Failed to save answer");
     }
   };
-
+  const handlefinishexam = async () => {
+    Navigate("/finish");
+  };
   const handleSubmit = async () => {
     try {
       if (selectedOption === question.answer) {
@@ -130,7 +132,6 @@ const Quiz = () => {
   return (
     <div className="h-screen flex justify-center items-center bg-gray-100">
       <div className="bg-white rounded-lg overflow-hidden w-4/5 md:w-3/5 lg:w-2/5 p-6 relative">
-        {/* Display warnings */}
         <div className="absolute top-0 left-0 bg-transparent text-red-600 p-2">
           <p>{warnings} warnings</p>
         </div>
@@ -157,6 +158,12 @@ const Quiz = () => {
         <div className="flex justify-between mt-4">
           <button
             onClick={handleSubmit}
+            className="bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            Next
+          </button>
+          <button
+            onClick={handlefinishexam}
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
             Submit
