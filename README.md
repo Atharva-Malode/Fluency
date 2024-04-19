@@ -4,12 +4,13 @@ Fluency is a language learning application designed to facilitate language acqui
 
 ## Features
 
+- [x] Exam Proctoring with Advanced Security Measures: Utilizes multithreading for real-time monitoring of voice and camera visuals. Ensures exam integrity by detecting suspicious behaviors, such as looking away from the screen or unauthorized aids. Enhances the security of the examination process by employing advanced computer vision algorithms.
 - [x] Answer Exercises to Earn Points and Track Progress
 - [x] Language Preference Selection Once Uploaded by Admin
 - [x] Leaderboard: Top Performers and Competitive Rankings for progress comparison.
 - [x] Authentication: Secure Access with login and signup functionalities.
 - [x] Responsive Design: Mobile-Friendly for seamless cross-device experience.
-- [x] Exam Proctoring to check weather the user is cheating using multithreading for voice and cam visuals.
+
 
 ---
 
@@ -95,7 +96,7 @@ Your application is now set up and ready to use!
 <!-- Second Row -->
 <p align="center">
   <img src="assets/fFrontend-userprofile.png" alt="User Profile" width="400"/>
-  <img src="assets/fronend-question1.png" alt="Question 1" width="400"/>
+  <img src="assets/Frontend-user-blocked.png" alt="User blocked after 5 warnings" width="400"/>
 </p>
 
 <!-- Third Row -->
