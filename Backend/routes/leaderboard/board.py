@@ -9,9 +9,9 @@ Leaderboard = APIRouter()
 @Leaderboard.get("/leaderboard")
 def get_leaderboard():
     try:
-        Leaderboard = User.objects.only("username", "total_points").order_by("-total_points") #order_by is used to sort the data in descending order
+        Leaderboard = User.objects.only("username", "total_points","warnings").order_by("-total_points") #order_by is used to sort the data in descending order
         leaderboard_data = [
-            {"username": user.username, "total_points": user.total_points}
+            {"username": user.username, "total_points": user.total_points, "warnings": user.warnings}
             for user in Leaderboard
         ]
         return {"message": leaderboard_data}

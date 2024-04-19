@@ -19,13 +19,13 @@ const Leaderboard = () => {
             <div className="font-semibold">No</div>
             <div className="font-semibold">Username</div>
             <div className="font-semibold">Total Point</div>
-            <div className="font-semibold">Language</div>
+            <div className="font-semibold">Total Warnings</div>
             {leaderboardData.map((user, index) => (
               <React.Fragment key={index}>
                 <div>{index + 1}</div>
                 <div>{user.username}</div>
                 <div>{user.total_points}</div>
-                <div>English</div>
+                <div>{user.warnings}</div>
               </React.Fragment>
             ))}
           </div>
