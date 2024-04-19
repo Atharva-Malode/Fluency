@@ -9,9 +9,7 @@ Fluency is a language learning application designed to facilitate language acqui
 - [x] Leaderboard: Top Performers and Competitive Rankings for progress comparison.
 - [x] Authentication: Secure Access with login and signup functionalities.
 - [x] Responsive Design: Mobile-Friendly for seamless cross-device experience.
-- [ ] Exercise Management: Admin Panel to add exercises in different languages.
-
-## Backend Test Link : https://fluencyapp.azurewebsites.net/docs
+- [x] Exam Proctoring to check weather the user is cheating using multithreading for voice and cam visuals.
 
 ---
 
@@ -26,7 +24,7 @@ Fluency is a language learning application designed to facilitate language acqui
 #### Frontend Setup
 2. Navigate to the project directory in the terminal:
     ```bash
-    cd project
+    cd fluency
     cd frontend
     ```
 
@@ -45,7 +43,7 @@ Fluency is a language learning application designed to facilitate language acqui
 
 6. Navigate to the backend directory:
     ```bash
-    cd project
+    cd fluency
     cd backend
     ```
 
@@ -71,8 +69,8 @@ Fluency is a language learning application designed to facilitate language acqui
     ```
 
 12. Note:
-    - Ensure you have a database named 'language'.
-    - Inside the 'language' database, ensure there is a collection named 'test' and a user present.
+    - Ensure you have a database named 'fluency'.
+    - Inside the 'language' database, ensure there is a collection named 'questions' and a user present.
       
 
 #### Viewing Swagger Documentation for Backend
@@ -147,4 +145,14 @@ MongoDB is structured with two collections:
   <img src="assets/Mongo-user-data.png" alt="Question 2" width="400"/>
   <img src="assets\mongo-excercise-data.png" alt="Sign Up" width="400"/>
 </p>
+---
+### Exam Proctoring using Computer Vision
+
+In addition to providing a platform for taking exams, our system also incorporates exam proctoring using computer vision technology. This feature ensures the integrity of the examination process by monitoring the test-taker's behavior and environment during the exam. Through real-time analysis of video feeds, the system can detect suspicious activities such as looking away from the screen, multiple faces detected, or unauthorized objects in the vicinity.
+
+<p align="center">
+  <img src="assets/exam-proctoring.png" alt="Exam Proctoring" width="600"/>
+</p>
+
+The image above illustrates how our exam proctoring system works. It employs advanced computer vision algorithms to monitor the test-taker's actions and surroundings, helping to maintain the fairness and security of the examination process.
 ---
