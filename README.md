@@ -121,12 +121,16 @@ The backend is powered by **FastAPI**, a high-performance web framework for Pyth
 - `POST /token`: Login (required: username and password)
 - `GET /user_data`: Get User Data
 - `POST /add_question`: Add Question (require: answer submitted by user, whether it is wrong or right, level of the user's answer, points scored, time taken by the user) [add response to database]
-- `POST /question`: Get Question (require: question number, old answer correctness, old level of the question, language of the question)
+- `POST /question`: Get Question (to get the next question)
 - `GET /leaderboard`: Get Leaderboard
-
+- `GET /warningS` : Endpoint is used to increment the warning count, if the user is detected cheating
+- `GET /start_exam` : To start the exam and online proctoring.
 The backend includes Swagger UI, offering an intuitive interface to explore routes, parameters, outputs, and test functionalities.
 
-![Swagger UI](assets/Backend-swagger.png)
+<p align="center">
+  <img src="assets/backend-swagger-1.png" alt="Authentication" width="400"/>
+  <img src="assets/backend-swagger-2.png" alt="Update" width="400"/>
+</p>
 
 ---
 ### **MongoDB Overview**
@@ -143,7 +147,7 @@ MongoDB is structured with two collections:
 
 <p align="center">
   <img src="assets/Mongo-user-data.png" alt="Question 2" width="400"/>
-  <img src="assets\mongo-excercise-data.png" alt="Sign Up" width="400"/>
+  <img src="assets\mongo-questions.png" alt="Sign Up" width="400"/>
 </p>
 
 ---
