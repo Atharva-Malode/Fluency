@@ -5,10 +5,6 @@ import Cookies from "js-cookie";
 
 const menuItems = [
   {
-    name: "Leaderboard",
-    href: "/leaderboard",
-  },
-  {
     name: "My Profile",
     href: "/profile",
   },
