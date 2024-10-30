@@ -148,7 +148,7 @@ MongoDB is structured with two collections:
 
 <p align="center">
   <img src="assets/Mongo-user-data.png" alt="Question 2" width="400"/>
-  <img src="assets\mongo-questions.png" alt="Sign Up" width="400"/>
+  <img src="assets/mongo-questions.png" alt="Sign Up" width="400"/>
 </p>
 
 ---
